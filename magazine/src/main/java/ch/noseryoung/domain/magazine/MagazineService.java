@@ -1,5 +1,6 @@
 package ch.noseryoung.domain.magazine;
 
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class MagazineService {
   }
 
   public Magazine getMagazineById(int magazineId) {
-    return magazineRepository.findById(magazineId).get();
+    return magazineRepository.findById(magazineId).orElseThrow();
   }
 
   public Magazine updateMagazine(Magazine magazine, int magazineId) {
@@ -22,7 +23,8 @@ public class MagazineService {
   }
 
   public Magazine deleteMagazine(int magazineId) {
-    Magazine magazine = magazineRepository.findById(magazineId).get();
+    Magazine magazine =
+        magazineRepository.findById(magazineId).orElseThrow(() -> new NoSuchElementException());
     magazineRepository.deleteById(magazineId);
     return magazine;
   }

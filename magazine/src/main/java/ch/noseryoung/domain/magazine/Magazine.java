@@ -24,15 +24,15 @@ public class Magazine {
 
   @Column(name = "name")
   @NotNull
-  @Size(min = 1, max = 255)
+  @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
   private String name;
 
   @Column(name = "number_of_volumes")
-  @Min(1)
+  @NotNull
   private int numberOfVolumes;
 
   @Column(name = "publisher")
   @NotNull
-  @Size(min = 1, max = 255)
+  @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
   private String publisher;
 }
