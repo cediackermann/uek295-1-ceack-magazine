@@ -9,9 +9,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "magazine")
+@Getter
+@Setter
 public class Magazine {
   @Column(name = "magazine_id")
   @Id
@@ -23,7 +27,7 @@ public class Magazine {
   @Size(min = 1, max = 255)
   private String name;
 
-  @Column(name = "numberOfVolumes")
+  @Column(name = "number_of_volumes")
   @Min(1)
   private int numberOfVolumes;
 
