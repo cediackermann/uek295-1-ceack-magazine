@@ -33,6 +33,6 @@ public class Magazine {
 
   @Column(name = "publisher")
   @NotNull
-  @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
-  private String publisher;
+  @Min(value = 1, message = "Publisher must be a valid id")
+  private int publisherId;
 }
