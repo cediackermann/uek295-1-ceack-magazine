@@ -47,8 +47,6 @@ public class WebSecurityConfig {
                     .permitAll()
                     .anyRequest()
                     .authenticated()
-            // TODO: Everything else, authenticate
-            // TODO: Secure endpoints inside the controller class using @PreAuthorize
             )
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
