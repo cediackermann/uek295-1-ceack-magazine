@@ -3,7 +3,10 @@ package ch.noseryoung.domain.magazine;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +53,27 @@ public class MagazineController {
   }
 
   @ExceptionHandler(NoSuchElementException.class)
-  public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
-    return ResponseEntity.status(404).body(e.getMessage());
+  public ResponseEntity<String> handleNoSuchElementException() {
+    return ResponseEntity.status(404).body("Resource not found!");
+  }
+
+  @ExceptionHandler({TransactionSystemException.class})
+  public ResponseEntity<String> handleTransactionSystemException() {
+    return ResponseEntity.status(500).body("Content is not valid!");
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<String> handleHttpMessageNotReadableException() {
+    return ResponseEntity.status(400).body("Content is not valid!");
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<String> handleAccessDeniedException() {
+    return ResponseEntity.status(403).body("Access denied!");
+  }
+
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<String> handleRuntimeException() {
+    return ResponseEntity.status(500).body("An error occurred!");
   }
 }
