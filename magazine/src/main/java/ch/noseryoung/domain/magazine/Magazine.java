@@ -31,8 +31,7 @@ public class Magazine {
   @NotNull
   private int numberOfVolumes;
 
-  @Column(name = "publisher")
+  @Column(name = "id_publisher")
   @NotNull
-  @Min(value = 1, message = "Publisher must be a valid id")
   private int publisherId;
 }
