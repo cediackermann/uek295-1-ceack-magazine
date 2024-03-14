@@ -6,9 +6,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,28 +62,22 @@ public class MagazineController {
 
   @ExceptionHandler(NoSuchElementException.class)
   public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource not found!");
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
   }
 
-  @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException e) {
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied!");
-  }
-
-  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-  public ResponseEntity<String> handleHttpRequestMethodNotSupportedException(
-      HttpRequestMethodNotSupportedException e) {
-    return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("Method not allowed!");
-  }
-
-  @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<String> handleMethodArgumentNotValidException(
-      org.springframework.web.bind.MethodArgumentNotValidException e) {
+      MethodArgumentNotValidException e) {
     return ResponseEntity.badRequest()
         .body(
             e.getBindingResult().getFieldError().getField()
                 + " is invalid: "
                 + e.getBindingResult().getFieldError().getDefaultMessage());
+  }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+    return ResponseEntity.badRequest().body(e.getCause().getMessage());
   }
 
   @ExceptionHandler(Exception.class)
