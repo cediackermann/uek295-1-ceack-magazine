@@ -36,3 +36,12 @@ git clone https://github.com/cediackermann/uek295-1-ceack-magazine.git
 Open http://localhost:8080/swagger-ui/index.html#/magazine-controller/getMagazineById
 in your browser to see the API documentation. You can maintain Users in the
 file `magazine/src/main/resources/data.sql`.
+
+## Standard Users
+### Admin
+- Username: "admin"
+- Password: "1234"
+
+### User
+- Username: "user"
+- Password: "1234"
