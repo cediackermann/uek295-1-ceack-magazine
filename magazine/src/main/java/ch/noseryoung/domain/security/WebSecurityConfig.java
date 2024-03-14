@@ -46,8 +46,7 @@ public class WebSecurityConfig {
                         "/swagger-ui/*")
                     .permitAll()
                     .anyRequest()
-                    .authenticated()
-            )
+                    .authenticated())
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .cors(AbstractHttpConfigurer::disable)
